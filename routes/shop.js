@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const router = express.Router();
 
@@ -6,8 +7,12 @@ router.get('/info', (req, res, next) => {
     res.send('<h1>We are now at the \"Information\" page.</h1>');
 });
 
+router.get('/about', (req, res, next) => {
+    res.sendFile(path.join(__dirname, '..', 'views', 'about.html'));
+})
+
 router.get('/', (req, res, next) => {
-    res.send('<h1>Back-end programming, lab 1, Hello from NODE & Express.js!</h1>');
+    res.status(404).sendFile(path.join(__dirname, '..', 'views', 'shop.html'));
 })
 
 
