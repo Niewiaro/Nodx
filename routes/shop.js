@@ -12,7 +12,7 @@ router.get('/about', (req, res, next) => {
 })
 
 router.get('/', (req, res, next) => {
-    res.status(404).sendFile(path.join(__dirname, '..', 'views', 'shop.html'));
+    res.sendFile(path.join(__dirname, '..', 'views', 'shop.html'));
 })
 
 
