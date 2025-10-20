@@ -1,7 +1,7 @@
 {
-  "name": "prog-ap-int-lab1",
+  "name": "prog-ap-int-lab2",
   "version": "1.0.0",
-  "description": "Programowanie Aplikacji Internetowych, Lab-1",
+  "description": "Programowanie Aplikacji Internetowych, Lab-2",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,6 +14,9 @@
     "nodemon": "^3.1.10"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-handlebars": "^8.0.3",
+    "pug": "^3.0.3"
   }
 }
