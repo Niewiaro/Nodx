@@ -6,14 +6,20 @@ const products = [];
 
 // /admin/add-product => GET
 router.get('/add-product', (req, res, next) => {
-  res.sendFile(path.join(path.dirname(require.main.filename), 
-  'views', 'add-product.html'));
+  res.render('add-product', {
+    pageTitle: 'Add Product',
+    path: '/admin/add-product',
+    formsCSS: true,
+    productCSS: true,
+    activeAddProduct: true
+  });
 });
 
 // /admin/add-product => POST
 router.post('/add-product', (req, res, next) => {
-  // console.log(req.body);
-  products.push({ title: req.body.title });
+  const price = Math.floor(Math.random() * 90) + 10; // Random price for demo
+  const desc = 'A very nice ' + req.body.title;
+  products.push({ title: req.body.title, price: price, description: desc });
   res.redirect('/');
 });
 
