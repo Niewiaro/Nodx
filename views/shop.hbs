@@ -1,0 +1,20 @@
+<main>
+    {{#if hasProducts}}
+    <div class="grid">
+        {{#each prods}}
+        <article class="card product-item">
+            <header class="card__header">
+                <h1 class="product__title">{{this.title}}</h1>
+            </header>
+            <div class="card__content">
+                <h2 class="product__price">Price: ${{this.price}}</h2>
+                <p class="product__description">{{this.description}}</p>
+            </div>
+        </article>
+        {{/each}}  
+    </div>
+
+    {{else}}
+        <h2>No Products Found!</h2>
+    {{/if}}
+</main>
