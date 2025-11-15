@@ -11,7 +11,20 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = async (req, res, next) => {
-    const product = new Product(req.body.title);
+    const title = req.body.title;
+    const image = req.file;
+    if (!image) {
+        return res.status(422).render("add-product", {
+            pageTitle: "Add Product",
+            path: "/admin/add-product",
+            formsCSS: true,
+            productCSS: true,
+            activeAddProduct: true,
+            errorMessage: "Attached file is not an image.",
+        });
+    }
+    const imageUrl = image.path;
+    const product = new Product(title, imageUrl);
     await product.save();
     res.redirect("/");
 };

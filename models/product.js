@@ -2,7 +2,7 @@ const fs = require('fs').promises;
 const path = require('path');
 
 const fullName = path.join(
-    path.dirname(process.main.filename),
+    path.dirname(require.main.filename),
     'data',
     'products.json'
 );
@@ -20,16 +20,15 @@ const getProductsFromFile = async () => {
 };
 
 module.exports = class Product {
-    constructor(title) {
+    constructor(title, image) {
         this.title = title;
+        this.image = image;
         this.price = Math.floor(Math.random() * 90) + 10;
         this.desc = "A very nice " + this.title;
     }
     async save() {
-        products.length = 0;
         try {
-            const prods = await getProductsFromFile();
-            products.push(...prods);
+            const products = await getProductsFromFile();
             products.push(this);
             await fs.writeFile(fullName, JSON.stringify(products));
         } catch (err) {
@@ -37,9 +36,7 @@ module.exports = class Product {
         }
     }
     static async fetchAll() {
-        products.length = 0;
-        const prods = await getProductsFromFile();
-        products.push(...prods);
+        const products = await getProductsFromFile();
         return products;
     }
 };
