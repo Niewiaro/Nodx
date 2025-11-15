@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
-
 * {
   box-sizing: border-box;
 }
@@ -7,7 +5,7 @@
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
 }
 
 main {
@@ -18,7 +16,7 @@ main {
 .main-header {
   width: 100%;
   height: 3.5rem;
-  background-color: #0262ac;
+  background-color: #005452;
   padding: 0 1.5rem;
 }
 
@@ -61,6 +59,7 @@ main {
 
 .card {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  margin: 0.5rem;
 }
 
 .card__header,
@@ -76,7 +75,8 @@ main {
 }
 
 .card__image {
-  width: 100%;
+  width: 60%;
+  margin: auto;
 }
 
 .card__image img {
