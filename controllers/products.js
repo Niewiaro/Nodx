@@ -13,6 +13,9 @@ exports.getAddProduct = (req, res, next) => {
 exports.postAddProduct = async (req, res, next) => {
     const title = req.body.title;
     const image = req.file;
+    const price = parseFloat(req.body.price);
+    const description = req.body.description;
+
     if (!image) {
         return res.status(422).render("add-product", {
             pageTitle: "Add Product",
@@ -23,8 +26,18 @@ exports.postAddProduct = async (req, res, next) => {
             errorMessage: "Attached file is not an image.",
         });
     }
+    if (!title || isNaN(price)) {
+        return res.status(422).render("add-product", {
+            pageTitle: "Add Product",
+            path: "/admin/add-product",
+            formsCSS: true,
+            productCSS: true,
+            activeAddProduct: true,
+            errorMessage: "Please provide a title and a valid price.",
+        });
+    }
     const imageUrl = image.path;
-    const product = new Product(title, imageUrl);
+    const product = new Product(title, imageUrl, price, description);
     await product.save();
     res.redirect("/");
 };
