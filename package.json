@@ -1,7 +1,7 @@
 {
-  "name": "prog-ap-int-lab3",
+  "name": "prog-ap-int-lab4",
   "version": "1.0.0",
-  "description": "Programowanie Aplikacji Internetowych, Lab-3",
+  "description": "Programowanie Aplikacji Internetowych, Lab-4",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
