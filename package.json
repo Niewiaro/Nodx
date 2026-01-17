@@ -1,21 +1,17 @@
 {
-  "name": "prog-ap-int-lab3",
-  "version": "1.0.0",
-  "description": "Programowanie Aplikacji Internetowych, Lab-3",
-  "main": "app.js",
+  "name": "Nodx",
+  "type": "module",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js",
-    "start-server": "node app.js"
-  },
-  "author": "Grzegorz Filo",
-  "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^3.1.10"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "ejs": "^3.1.10",
-    "express": "^5.1.0",
-    "multer": "^2.0.2"
+    "nuxt": "^4.2.2",
+    "vue": "^3.5.26",
+    "vue-router": "^4.6.4"
   }
 }
