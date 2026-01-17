@@ -1,0 +1,24 @@
+services:
+  # Serwis aplikacji Nuxt
+  app:
+    build: .
+    ports:
+      - "3000:3000" # Mapowanie portu: lokalny -> kontener
+    volumes:
+      - .:/app # KLUCZOWE: Mapuje Twój folder lokalny do folderu w kontenerze (Hot Reload)
+      - /app/node_modules # Zapobiega nadpisaniu node_modules w kontenerze przez lokalny folder (pusty)
+    environment:
+      - NUXT_HOST=0.0.0.0
+    depends_on:
+      - mongo # Czeka aż baza wstanie
+
+  # Serwis bazy danych MongoDB
+  mongo:
+    image: mongo:6 # Wersja zgodna z Twoim package.json (miałeś ^6.10.0)
+    ports:
+      - "27017:27017" # Pozwala Ci połączyć się Compass'em z localhost:27017
+    volumes:
+      - mongo_data:/data/db # Trwałość danych (żeby nie znikały po restarcie kontenera)
+
+volumes:
+  mongo_data:
