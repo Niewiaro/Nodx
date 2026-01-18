@@ -1,241 +1,325 @@
-# 🛒 Giełda Internetowa - Nuxt 4 Edition
+# Nuxt 4 Giełda Internetowa
 
-E-commerce aplikacja zbudowana w **Nuxt 4** z backendem API w **Nitro** i bazą danych **MongoDB**.
+Instrukcja uruchamiania aplikacji w trybie Docker (Dev/Prod) oraz klasycznie (Local).
 
-> Pełna migracja z Express.js → Nuxt 4 dla przedmiotu "Programowanie back-end" na studiach magisterskich.
+## Uruchamianie przez Docker
 
-## 🌟 Główne cechy
+Aplikacja zawiera konfigurację Multi-stage Docker. Baza danych MongoDB jest uruchamiana automatycznie w osobnym kontenerze.
 
-- ✅ **Full-stack framework** - frontend Vue 3 + backend Node.js w jednym projekcie
-- ✅ **TypeScript** - cała aplikacja w TypeScript dla lepszego type-safety
-- ✅ **MongoDB** - baza danych z Mongoose
-- ✅ **Zarządzanie stanem** - Pinia store + localStorage
-- ✅ **Responsywny UI** - CSS z oryginalnego Express projektu
-- ✅ **API REST** - pełne CRUD operacje
-- ✅ **Autoryzacja** - logowanie, rejestracja, reset hasła
-- ✅ **Koszyk i zamówienia** - pełna funkcjonalność e-commerce
-- ✅ **Faktury PDF** - generowanie faktur w PDF
-
-## 📋 Funkcjonalności
-
-### 👥 Dla użytkowników
-- [x] Rejestracja i logowanie
-- [x] Reset hasła
-- [x] Przeglądanie produktów z paginacją
-- [x] Szczegóły produktu
-- [x] Dodawanie do koszyka
-- [x] Zarządzanie koszykiem
-- [x] Tworzenie zamówień
-- [x] Historia zamówień
-- [x] Pobieranie faktur PDF
-
-### 🛠️ Dla administratorów
-- [x] Dodawanie produktów
-- [x] Edycja produktów
-- [x] Usuwanie produktów
-- [x] Zarządzanie własnymi produktami
-
-## 🚀 Quick Start
-
-### Wymagania
-- Node.js 18+
-- MongoDB 4.4+
-- npm lub yarn
-
-### Instalacja
+### 1. Tryb Deweloperski (Hot Reload)
+Uruchamia aplikację z montowaniem kodu lokalnego (zmiany w plikach są widoczne natychmiast).
 
 ```bash
-# 1. Zainstaluj zależności
-npm install
-
-# 2. Uruchom MongoDB (jeśli lokalnie)
-mongod
-
-# 3. Uruchom serwer deweloperski
-npm run dev
-```
-
-Aplikacja będzie dostępna na `http://localhost:3000`
-
-## 📚 Dokumentacja
-
-- **[COMPLETE_MIGRATION.md](COMPLETE_MIGRATION.md)** ⭐ - Pełna dokumentacja migracji Express → Nuxt
-- **[PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)** - Struktura projektu i routing
-- **[QUICKSTART.md](QUICKSTART.md)** - Przykłady API i testowanie
-- **[MIGRATION.md](MIGRATION.md)** - Podstawowa dokumentacja
-
-## 🏗️ Struktura projektu
+docker compose up --build
 
 ```
-Nodx/
-├── app/                    # Główna aplikacja
-├── components/             # Komponenty Vue
-├── pages/                  # Strony (file-based routing)
-├── server/api/             # API endpoints
-├── server/models/          # Modele Mongoose
-├── stores/                 # Pinia stores
-├── public/                 # Pliki statyczne
-└── nuxt.config.ts          # Konfiguracja
-```
 
-Pełna struktura: [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)
+* **Aplikacja:** [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000)
+* **Baza danych (dostęp z zewnątrz):** `mongodb://localhost:27017`
 
-## 🔑 Główne strony
+### 2. Tryb Produkcyjny
 
-| URL | Opis |
-|-----|------|
-| `/` | Strona główna |
-| `/products` | Lista produktów |
-| `/products/:id` | Szczegóły produktu |
-| `/cart` | Koszyk |
-| `/orders` | Moje zamówienia |
-| `/auth/login` | Logowanie |
-| `/auth/signup` | Rejestracja |
-| `/admin/products` | Zarządzanie produktami |
-| `/admin/add-product` | Dodaj produkt |
-
-## 🔌 API Endpoints
-
-### Produkty
-```
-GET    /api/products              # Lista produktów
-GET    /api/products/:id          # Szczegóły
-POST   /api/products              # Dodaj produkt
-PUT    /api/products/:id          # Edytuj produkt
-DELETE /api/products/:id          # Usuń produkt
-```
-
-### Autoryzacja
-```
-POST   /api/auth/signup           # Rejestracja
-POST   /api/auth/login            # Logowanie
-POST   /api/auth/reset            # Reset hasła
-POST   /api/auth/new-password     # Nowe hasło
-```
-
-### Koszyk
-```
-GET    /api/cart/:userId          # Pobierz koszyk
-POST   /api/cart/add              # Dodaj do koszyka
-POST   /api/cart/remove           # Usuń z koszyka
-```
-
-### Zamówienia
-```
-GET    /api/orders/:userId        # Lista zamówień
-POST   /api/orders/create         # Utwórz zamówienie
-GET    /api/orders/invoice/:id    # Pobierz fakturę PDF
-```
-
-Przykłady testowania: [QUICKSTART.md](QUICKSTART.md)
-
-## 💾 Baza danych
-
-**MongoDB** z modelami:
-- **Product** - produkty
-- **User** - użytkownicy z koszykiem
-- **Order** - zamówienia
-
-## 🔐 Autoryzacja
-
-- Hasła hashowane z **bcryptjs** (12 rounds)
-- Token reset hasła z 1-godzinnym TTL
-- Stan użytkownika w **Pinia store** + **localStorage**
-
-## 🛠️ Technologia
-
-### Frontend
-- **Nuxt 4** - framework
-- **Vue 3** - UI library
-- **TypeScript** - typowanie
-- **Pinia** - state management
-- **CSS** - stylowanie
-
-### Backend
-- **Nitro** - API runtime
-- **Node.js** - JavaScript runtime
-- **MongoDB** - baza danych
-- **Mongoose** - ODM
-- **bcryptjs** - hashing haseł
-- **PDFKit** - generowanie PDF
-
-## 📦 Zbuduj dla produkcji
+Uruchamia zoptymalizowany, lekki obraz produkcyjny (bez kodu źródłowego, tylko build). Aplikacja nasłuchuje na porcie 80.
 
 ```bash
-# Zbuduj dla produkcji
-npm run build
-
-# Podgląd buildu
-npm run preview
-
-# Generuj statyczną stronę (SSG)
-npm run generate
-```
-
-## 🐛 Debugowanie
-
-```bash
-# Z verbose output
-npm run dev -- --verbose
-
-# Z debuggingiem
-DEBUG=* npm run dev
-```
-
-## 🤝 Migracja z Express
-
-Projekt jest pełną migracją z Express.js. Oryginalny projekt dostępny w `/express`:
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 
 ```
-Express (stara struktura)       →  Nuxt 4 (nowa struktura)
-├── controllers/                →  server/api/
-├── routes/                     →  file-based routing w pages/
-├── views/                      →  components/ + pages/
-├── models/                     →  server/models/
-└── public/                     →  public/
-```
 
-Szczegóły: [COMPLETE_MIGRATION.md](COMPLETE_MIGRATION.md)
-
-## 📝 Uwagi dla developerów
-
-### TODO / Ulepszenia
-
-- [ ] CSRF protection
-- [ ] Rate limiting
-- [ ] Upload plików (obrazki)
-- [ ] Email dla resetowania hasła
-- [ ] Walidacja formularzy (Zod/Yup)
-- [ ] Toast notifications
-- [ ] Auth middleware
-- [ ] Tests (Vitest)
-- [ ] Image optimization (Nuxt Image)
-- [ ] i18n (wielojęzyczność)
-
-### Known Issues
-- ⚠️ Placeholder `USER_ID_PLACEHOLDER` - zamień na ID z store w komponentach cart/orders
-- ⚠️ Upload plików wymaga implementacji
-- ⚠️ CSRF protection - do dodania
-
-## 🎓 Edukacyjny projekt
-
-Realizowany jako część przedmiotu:
-- **Przedmiot**: Programowanie back-end
-- **Stopień**: II (magisterskie)
-- **Kierunek**: Informatyka Stosowana
-- **Instytucja**: Politechnika Krakowska
-
-Autor: Grzegorz Filo  
-Wersja: 2.0 (Nuxt 4)
-
-## 📄 Licencja
-
-AFL-3.0
+* **Aplikacja:** [http://localhost](https://www.google.com/search?q=http://localhost)
+* **Baza danych:** Niedostępna z zewnątrz (izolowana w sieci Docker).
 
 ---
 
-**Gotowe do uruchomienia!** 🚀
+## Uruchamianie Klasyczne (Local Node.js)
+
+Wymaga zainstalowanego Node.js oraz **osobno uruchomionej bazy MongoDB** (np. lokalnie lub w chmurze).
+
+### Konfiguracja .env
+
+Aby uruchomić aplikację bez Dockera, musisz zmienić adres bazy danych w pliku `.env`. Kontener `mongo` nie jest widoczny dla Twojego systemu hosta.
+
+**Plik `.env`:**
+
+```ini
+# Dla Dockera (domyślnie):
+# NUXT_MONGODB_URI=mongodb://mongo:27017/g_back_05
+
+# ZMIEŃ NA TO dla uruchomienia lokalnego (npm):
+NUXT_MONGODB_URI=mongodb://localhost:27017/g_back_05
+
+```
+
+### 1. Tryb Deweloperski
 
 ```bash
-npm install && npm run dev
+npm install
+npm run dev
+
 ```
+
+Dostęp: [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000)
+
+### 2. Build Produkcyjny (Lokalnie)
+
+Buduje aplikację i uruchamia serwer Nitro.
+
+```bash
+npm run build
+node .output/server/index.mjs
+
+```
+
+Dostęp: [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000)
+
+---
+
+# Struktura projektu Nuxt 4 - Giełda Internetowa
+
+## 📁 Pełna struktura katalogów
+
+```
+Nodx/
+│
+├── 📁 app/
+│   └── app.vue                           # Główny plik aplikacji z CSS imports
+│
+├── 📁 components/
+│   ├── TheNavigation.vue                 # Główna nawigacja (desktop + mobile)
+│   ├── ProductCard.vue                   # Komponent karty produktu
+│   └── Pagination.vue                    # Komponent paginacji
+│
+├── 📁 layouts/
+│   └── default.vue                       # Domyślny layout ze slotami
+│
+├── 📁 pages/
+│   ├── index.vue                         # Strona główna / powitalna
+│   ├── cart.vue                          # Koszyk zakupowy
+│   ├── orders.vue                        # Lista zamówień użytkownika
+│   ├── 404.vue                           # Strona 404
+│   │
+│   ├── 📁 products/
+│   │   ├── index.vue                     # Lista wszystkich produktów
+│   │   └── [id].vue                      # Szczegóły pojedynczego produktu
+│   │
+│   ├── 📁 auth/
+│   │   ├── login.vue                     # Strona logowania
+│   │   ├── signup.vue                    # Strona rejestracji
+│   │   ├── reset.vue                     # Żądanie resetu hasła
+│   │   └── new-password.vue              # Ustawienie nowego hasła
+│   │
+│   └── 📁 admin/
+│       ├── products.vue                  # Zarządzanie produktami (admin)
+│       ├── add-product.vue               # Dodawanie nowego produktu
+│       └── 📁 edit-product/
+│           └── [id].vue                  # Edycja istniejącego produktu
+│
+├── 📁 server/
+│   ├── 📁 api/                           # API Routes (RESTful endpoints)
+│   │   │
+│   │   ├── 📁 products/
+│   │   │   ├── index.get.ts              # GET /api/products - lista
+│   │   │   ├── index.post.ts             # POST /api/products - dodaj
+│   │   │   ├── [id].get.ts               # GET /api/products/:id - szczegóły
+│   │   │   ├── [id].put.ts               # PUT /api/products/:id - edytuj
+│   │   │   └── [id].delete.ts            # DELETE /api/products/:id - usuń
+│   │   │
+│   │   ├── 📁 auth/
+│   │   │   ├── signup.post.ts            # POST /api/auth/signup - rejestracja
+│   │   │   ├── login.post.ts             # POST /api/auth/login - logowanie
+│   │   │   ├── reset.post.ts             # POST /api/auth/reset - reset hasła
+│   │   │   └── new-password.post.ts      # POST /api/auth/new-password - nowe hasło
+│   │   │
+│   │   ├── 📁 cart/
+│   │   │   ├── [userId].get.ts           # GET /api/cart/:userId - pobierz koszyk
+│   │   │   ├── add.post.ts               # POST /api/cart/add - dodaj do koszyka
+│   │   │   └── remove.post.ts            # POST /api/cart/remove - usuń z koszyka
+│   │   │
+│   │   └── 📁 orders/
+│   │       ├── [userId].get.ts           # GET /api/orders/:userId - lista zamówień
+│   │       ├── create.post.ts            # POST /api/orders/create - utwórz zamówienie
+│   │       └── 📁 invoice/
+│   │           └── [orderId].get.ts      # GET /api/orders/invoice/:id - PDF faktura
+│   │
+│   ├── 📁 models/                        # Modele Mongoose (baza danych)
+│   │   ├── product.ts                    # Model: Product
+│   │   ├── user.ts                       # Model: User (z koszykiem)
+│   │   └── order.ts                      # Model: Order
+│   │
+│   └── 📁 plugins/
+│       └── mongoose.ts                   # Plugin Nitro: połączenie z MongoDB
+│
+├── 📁 stores/                            # Pinia Stores (zarządzanie stanem)
+│   └── auth.ts                           # Store: autoryzacja i koszyk
+│
+├── 📁 plugins/                           # Pluginy Nuxt
+│   └── auth.client.ts                    # Plugin: inicjalizacja auth z localStorage
+│
+├── 📁 public/                            # Pliki statyczne (dostępne publicznie)
+│   ├── 📁 css/
+│   │   ├── main.css                      # Główne style
+│   │   ├── product.css                   # Style produktów
+│   │   ├── forms.css                     # Style formularzy
+│   │   ├── auth.css                      # Style autoryzacji
+│   │   ├── cart.css                      # Style koszyka
+│   │   └── orders.css                    # Style zamówień
+│   ├── 📁 img/
+│   │   ├── pk.png
+│   │   ├── wm.png
+│   │   └── m7.png
+│   ├── 📁 js/
+│   │   ├── admin.js                      # JS dla admina
+│   │   └── main.js                       # Główny JS
+│   └── robots.txt
+│
+├── 📁 express/                           # Oryginalny projekt Express (referencja)
+│   └── ...                               # (zachowany do porównania)
+│
+├── 📄 nuxt.config.ts                     # Konfiguracja Nuxt
+├── 📄 tsconfig.json                      # Konfiguracja TypeScript
+├── 📄 package.json                       # Zależności projektu
+├── 📄 error.vue                          # Globalna strona błędów
+│
+└── 📄 Dokumentacja/
+    └── README.md                         # Podstawowe info
+```
+
+## Routing (automatyczny, file-based)
+
+| URL | Plik | Opis |
+|-----|------|------|
+| `/` | `pages/index.vue` | Strona główna |
+| `/products` | `pages/products/index.vue` | Lista produktów |
+| `/products/123` | `pages/products/[id].vue` | Szczegóły produktu (dynamic) |
+| `/cart` | `pages/cart.vue` | Koszyk |
+| `/orders` | `pages/orders.vue` | Zamówienia |
+| `/auth/login` | `pages/auth/login.vue` | Logowanie |
+| `/auth/signup` | `pages/auth/signup.vue` | Rejestracja |
+| `/auth/reset` | `pages/auth/reset.vue` | Reset hasła |
+| `/auth/new-password` | `pages/auth/new-password.vue` | Nowe hasło |
+| `/admin/products` | `pages/admin/products.vue` | Admin: produkty |
+| `/admin/add-product` | `pages/admin/add-product.vue` | Admin: dodaj |
+| `/admin/edit-product/123` | `pages/admin/edit-product/[id].vue` | Admin: edytuj (dynamic) |
+
+## API Endpoints
+
+### Produkty
+- `GET /api/products?page=1&limit=10` - lista z paginacją
+- `GET /api/products/:id` - szczegóły
+- `POST /api/products` - dodaj nowy
+- `PUT /api/products/:id` - aktualizuj
+- `DELETE /api/products/:id` - usuń
+
+### Autoryzacja
+- `POST /api/auth/signup` - rejestracja
+- `POST /api/auth/login` - logowanie
+- `POST /api/auth/reset` - żądanie resetu hasła
+- `POST /api/auth/new-password` - ustawienie nowego hasła
+
+### Koszyk
+- `GET /api/cart/:userId` - pobierz koszyk użytkownika
+- `POST /api/cart/add` - dodaj produkt do koszyka
+- `POST /api/cart/remove` - usuń produkt z koszyka
+
+### Zamówienia
+- `GET /api/orders/:userId` - lista zamówień użytkownika
+- `POST /api/orders/create` - utwórz nowe zamówienie
+- `GET /api/orders/invoice/:orderId` - pobierz fakturę PDF
+
+## Modele bazy danych (MongoDB + Mongoose)
+
+### Product
+```typescript
+{
+  title: string;
+  price: number;
+  description: string;
+  imageUrl: string;
+  userId: ObjectId;
+}
+```
+
+### User
+```typescript
+{
+  email: string;
+  password: string; // hashed with bcrypt
+  resetToken?: string;
+  resetTokenExpiration?: Date;
+  cart: {
+    items: [{
+      productId: ObjectId;
+      quantity: number;
+    }]
+  }
+}
+```
+
+### Order
+```typescript
+{
+  products: [{
+    product: Object;
+    quantity: number;
+  }];
+  user: {
+    email: string;
+    userId: ObjectId;
+  }
+}
+```
+
+## Komponenty wielokrotnego użytku
+
+- `TheNavigation.vue` - Responsywna nawigacja z menu mobilnym
+- `ProductCard.vue` - Karta produktu z obrazkiem, ceną, opisem
+- `Pagination.vue` - Nawigacja po stronach (prev/next)
+
+## Store (Pinia)
+
+**auth.ts** - główny store aplikacji:
+- `state`: user, isAuthenticated, cart
+- `actions`: login(), signup(), logout(), addToCart(), removeFromCart(), createOrder()
+- `getters`: cartItemCount, cartTotal
+
+## Konfiguracja
+
+**nuxt.config.ts**:
+- MongoDB URI
+- Secrets (session, CSRF)
+- Modules: Pinia
+- Nitro experimental features
+
+**package.json** - główne zależności:
+- `nuxt` - framework
+- `mongoose` - ODM dla MongoDB
+- `pinia` - state management
+- `bcryptjs` - hashing haseł
+- `pdfkit` - generowanie PDF
+
+## Konwencje nazewnictwa
+
+- **Pages**: PascalCase dla komponentów Vue (`index.vue`, `[id].vue`)
+- **API**: kebab-case + HTTP method (`index.get.ts`, `[id].delete.ts`)
+- **Components**: PascalCase (`TheNavigation.vue`, `ProductCard.vue`)
+- **Stores**: camelCase (`auth.ts`)
+- **Dynamic routes**: `[param].vue` (nawiasy kwadratowe)
+
+## Polecenia npm
+
+```bash
+npm run dev        # Uruchom serwer deweloperski
+npm run build      # Zbuduj dla produkcji
+npm run preview    # Podgląd buildu produkcyjnego
+npm run generate   # Generuj statyczną stronę (SSG)
+```
+
+## Dodatkowe informacje
+
+- **Auto-imports**: Vue Composables, Nuxt utils - automatycznie importowane
+- **TypeScript**: Pełne wsparcie + type inference
+- **Hot Module Replacement**: Zmiany widoczne natychmiast
+- **SSR/SSG**: Server-Side Rendering lub Static Site Generation
+- **API Routes**: Backend i frontend w jednym projekcie
+
+---
